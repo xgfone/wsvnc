@@ -27,7 +27,7 @@ Usage of ./wsvnc:
   -loglevel string
         The level of the log, such as debug, info, etc (default "debug")
   -option string
-        The option name of the request URL (default "token")
+        The token option name of the request URL (default "token")
   -path string
         The path of the request URL (default "/websockify")
   -redis string

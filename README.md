@@ -1,6 +1,6 @@
 # wsvnc
 
-It supports a HTTP Handler to implement the VNC proxy over websocket.
+It provides a HTTP Handler to implement the VNC proxy over websocket.
 
 you can use it easily as following:
 
