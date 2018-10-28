@@ -18,10 +18,14 @@ $ ./wsvnc
 Notice: The current host must run a redis server listening on `127.0.0.1:6379`, or you can modify it by the cli option `redis`.
 
 ```shell
-[root@localhost ~]# ./wsvnc -h
-Usage of ./wsvnc:
+[root@localhost ~]# /opt/wsvnc -h
+Usage of /opt/wsvnc:
   -addr string
         The listen address (default ":5900")
+  -cert string
+        The path of the cert file
+  -key string
+        The path of the key file
   -logfile string
         The path of the log file
   -loglevel string
