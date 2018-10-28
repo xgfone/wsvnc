@@ -28,4 +28,4 @@ http.ListenAndServe(":5900", nil)
 
 Then, you can use [noVNC](https://github.com/novnc/noVNC) by the url `http://127.0.0.1:5900/websockify?token=token1` to connect to "host1:port1" over websocket.
 
-**NOTICE:** The sub-package [wsvnc] implements the function above, but using the redis to store the mapping between `TOKEN` and `HOST:PORT`.
+**NOTICE:** The sub-package [wsvnc](https://github.com/xgfone/wsvnc/tree/master/wsvnc) implements the function above, but using the redis to store the mapping between `TOKEN` and `HOST:PORT`.

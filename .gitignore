@@ -33,5 +33,7 @@ test_*
 # log
 *.log
 
+*/vendor/
+
 # VS Code
 .vscode/

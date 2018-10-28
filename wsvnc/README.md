@@ -15,7 +15,7 @@ $ go build
 $ ./wsvnc
 ```
 
-Notice: The current host must run a redis server listening on `127.0.0.1:5900`, or you can modify it by the cli option `redis`.
+Notice: The current host must run a redis server listening on `127.0.0.1:6379`, or you can modify it by the cli option `redis`.
 
 ```shell
 [root@localhost ~]# ./wsvnc -h
