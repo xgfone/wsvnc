@@ -1,6 +1,6 @@
 # wsvnc
 
-This is an executable program.
+This is an executable program, which may be as the server of [noVNC](https://github.com/novnc/noVNC) instead of [websockify](https://github.com/novnc/websockify).
 
 ### Build
 
