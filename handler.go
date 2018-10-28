@@ -33,7 +33,7 @@ func (p *peer) Close() error {
 		close(p.sendSource)
 		close(p.sendTarget)
 
-		LOG.Info("Closed Peer", "source", p.source.RemoteAddr().String(),
+		LOG.Info("Close Peer", "source", p.source.RemoteAddr().String(),
 			"target", p.target.RemoteAddr().String())
 	}
 	return nil
