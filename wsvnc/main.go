@@ -24,6 +24,8 @@ var (
 	redisURL   string
 	urlPath    string
 	urlOption  string
+	certFile   string
+	keyFile    string
 )
 
 func init() {
@@ -33,11 +35,15 @@ func init() {
 	flag.StringVar(&redisURL, "redis", "redis://localhost:6379/0", "The redis connection url")
 	flag.StringVar(&urlPath, "path", "/websockify", "The path of the request URL")
 	flag.StringVar(&urlOption, "option", "token", "The token option name of the request URL")
+	flag.StringVar(&certFile, "cert", "", "The path of the cert file")
+	flag.StringVar(&keyFile, "key", "", "The path of the key file")
 }
 
 func main() {
 	defer lifecycle.Stop()
 	flag.Parse()
+
+	go signal2.HandleSignal()
 
 	// Handle the logging
 	level := miss.NameToLevel(logLevel)
@@ -83,9 +89,15 @@ func main() {
 	handler := wsvnc.NewWebsocketVncProxyHandler(wsconf)
 	http.Handle(urlPath, handler)
 
-	go signal2.HandleSignal()
-	logger.Info("Listening", "addr", listenAddr)
-	if err := http2.ListenAndServe(listenAddr, nil); err != nil {
+	tlsfiles := []string{}
+	if certFile != "" && keyFile != "" {
+		tlsfiles = []string{certFile, keyFile}
+	} else if certFile != "" || keyFile != "" {
+		logger.Warn("The cert and key file is incomplete and don't use TLS")
+	}
+
+	logger.Info("Listening", "addr", listenAddr, "tls", len(tlsfiles) != 0)
+	if err := http2.ListenAndServe(listenAddr, nil, tlsfiles...); err != nil {
 		logger.Fatal("ListenAndServe", "err", err)
 	}
 }
