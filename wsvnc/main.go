@@ -26,6 +26,7 @@ var (
 	urlOption  string
 	certFile   string
 	keyFile    string
+	connection string
 )
 
 func init() {
@@ -37,6 +38,8 @@ func init() {
 	flag.StringVar(&urlOption, "option", "token", "The token option name of the request URL")
 	flag.StringVar(&certFile, "cert", "", "The path of the cert file")
 	flag.StringVar(&keyFile, "key", "", "The path of the key file")
+	flag.StringVar(&connection, "connection", "",
+		"Enable the authentication token to get the connection number")
 }
 
 func main() {
@@ -89,6 +92,12 @@ func main() {
 	handler := wsvnc.NewWebsocketVncProxyHandler(wsconf)
 	http.Handle(urlPath, handler)
 	http.HandleFunc("/connections", func(w http.ResponseWriter, r *http.Request) {
+		if connection != "" {
+			if http2.GetQuery(r.URL.Query(), "token") != connection {
+				http2.String(w, http.StatusForbidden, "authentication failed")
+				return
+			}
+		}
 		http2.String(w, http.StatusOK, "%d", handler.Connections())
 	})
 

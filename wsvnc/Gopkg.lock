@@ -40,13 +40,13 @@
   branch = "master"
   name = "github.com/xgfone/miss"
   packages = ["."]
-  revision = "e4bc1b2ba9404b1bf46690ee17e48817354878ec"
+  revision = "1233446ef50b901ef6812e3285da689d958a40c3"
 
 [[projects]]
   branch = "master"
   name = "github.com/xgfone/wsvnc"
   packages = ["."]
-  revision = "8be9b5c499dcdb61f682fc3c51eb85a02481af77"
+  revision = "50352fc8359f2299b0c757f1748f73bc0bf62742"
 
 [solve-meta]
   analyzer-name = "dep"
