@@ -73,6 +73,7 @@ type ProxyConfig struct {
 
 // WebsocketVncProxyHandler is a VNC proxy handler based on websocket.
 type WebsocketVncProxyHandler struct {
+	connection int64
 	maxMsgSize int64
 	timeout    time.Duration
 	upgrader   *websocket.Upgrader
@@ -109,6 +110,19 @@ func NewWebsocketVncProxyHandler(conf ProxyConfig) WebsocketVncProxyHandler {
 	}
 
 	return h
+}
+
+// Connections returns the number of the current websockets.
+func (h WebsocketVncProxyHandler) Connections() int64 {
+	return atomic.LoadInt64(&h.connection)
+}
+
+func (h WebsocketVncProxyHandler) incConnection() {
+	atomic.AddInt64(&h.connection, 1)
+}
+
+func (h WebsocketVncProxyHandler) decConnection() {
+	atomic.AddInt64(&h.connection, -1)
 }
 
 // ServeHTTP implements http.Handler, but it won't return until the connection
@@ -162,6 +176,9 @@ func (h WebsocketVncProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Reque
 
 	ticker := time.NewTicker(h.timeout * 8 / 10)
 	defer ticker.Stop()
+
+	h.incConnection()
+	defer h.decConnection()
 
 	for {
 		select {

@@ -88,6 +88,9 @@ func main() {
 	}
 	handler := wsvnc.NewWebsocketVncProxyHandler(wsconf)
 	http.Handle(urlPath, handler)
+	http.HandleFunc("/connections", func(w http.ResponseWriter, r *http.Request) {
+		http2.String(w, http.StatusOK, "%d", handler.Connections())
+	})
 
 	tlsfiles := []string{}
 	if certFile != "" && keyFile != "" {
