@@ -229,9 +229,9 @@ func (h WebsocketVncProxyHandler) readSource(p *peer) {
 
 func (h WebsocketVncProxyHandler) readTarget(p *peer) {
 	addr := p.target.RemoteAddr().String()
-	buf := make([]byte, h.maxMsgSize)
 
 	for {
+		buf := make([]byte, h.maxMsgSize)
 		n, err := p.target.Read(buf)
 		if err != nil {
 			LOG.Error("can't read from VNC", "addr", addr, "err", err)
