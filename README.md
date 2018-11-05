@@ -1,5 +1,7 @@
 # wsvnc
 
+**DEPRECATED:** please see https://github.com/xgfone/websocket.
+
 It provides a HTTP Handler to implement the VNC proxy over websocket.
 
 you can use it easily as following:
